@@ -3,6 +3,13 @@ workflows:
     name: Apex-Bridge Node.js Build
     max_build_duration: 30
     instance_type: mac_mini_m2
+    triggering:
+      events:
+        - push
+        - pull_request
+      branch_patterns:
+        - pattern: "*"
+          include: true
     environment:
       node: 20
     scripts:
