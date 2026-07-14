@@ -48,7 +48,7 @@ export function FileTreeNode({
 
   React.useEffect(() => {
     rotateValue.value = withTiming(isExpanded ? 1 : 0, TimingFast);
-  }, [isExpanded]);
+  }, [isExpanded, rotateValue]);
 
   const arrowStyle = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotateValue.value * 90}deg` }],
