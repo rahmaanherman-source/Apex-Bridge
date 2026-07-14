@@ -115,11 +115,10 @@ export function BreezeButton({
         styles.base,
         sizeStyles[size],
         variantStyles[variant].container,
+        animatedStyle,
         isDisabled && styles.disabled,
         style,
       ]}
-      // @ts-expect-error animated style
-      animatedStyle={animatedStyle}
     >
       {isLoading ? (
         <ActivityIndicator size="small" color={variantStyles[variant].text.color} />

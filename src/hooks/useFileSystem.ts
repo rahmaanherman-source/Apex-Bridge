@@ -7,7 +7,7 @@
 import { useCallback } from 'react';
 import { useFileStore } from '../store/fileStore';
 import { useEditorStore } from '../store/editorStore';
-import { generateFileId, inferLanguage } from '../utils/fileUtils';
+import { generateFileId } from '../utils/fileUtils';
 import type { OpenTab } from '../utils/fileUtils';
 
 export function useFileSystem() {
@@ -24,6 +24,7 @@ export function useFileSystem() {
     deleteFile,
     renameFile,
     setExplorerVisible,
+    setRepositoryName,
   } = useFileStore();
 
   const { openTab } = useEditorStore();
@@ -78,5 +79,6 @@ export function useFileSystem() {
     toggleDirectory,
     setFiles,
     setExplorerVisible,
+    setRepositoryName,
   };
 }

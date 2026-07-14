@@ -6,7 +6,7 @@
  */
 
 import { create } from 'zustand';
-import { BreezeColors } from '../theme/colors';
+import { BreezeColors, type ThemeColors } from '../theme/colors';
 
 export type ThemeVariant = 'breeze' | 'midnight' | 'dawn' | 'forest' | 'ember';
 
@@ -14,15 +14,15 @@ export interface ThemeDefinition {
   id: ThemeVariant;
   name: string;
   description: string;
-  colors: typeof BreezeColors;
+  colors: ThemeColors;
   preview: string;
 }
 
 /** Midnight — the default deep indigo theme */
 const MidnightTheme: ThemeDefinition = {
   id: 'midnight',
-  name: 'Midnight Breeze',
-  description: 'Deep indigo twilight. The classic Apex Breeze experience.',
+  name: 'Midnight',
+  description: 'Deep indigo twilight. The classic Apex Bridge experience.',
   preview: '#1a1f3a',
   colors: BreezeColors,
 };
@@ -87,6 +87,10 @@ export const AVAILABLE_THEMES: ThemeDefinition[] = [
   ForestTheme,
   EmberTheme,
 ];
+
+export function isThemeVariant(value: string): value is ThemeVariant {
+  return AVAILABLE_THEMES.some((theme) => theme.id === value);
+}
 
 interface ThemeState {
   activeThemeId: ThemeVariant;

@@ -9,7 +9,8 @@
 import { GitHubService } from './GitHubService';
 import { AutosaveService } from './AutosaveService';
 import type { GitHubRepo } from '../store/authStore';
-import type { FileNode } from '../utils/fileUtils';
+import { generateFileId, type FileNode } from '../utils/fileUtils';
+import { inferLanguage } from '../utils/syntaxTokenizer';
 
 export type SyncOperation = 'pull' | 'push' | 'merge';
 
@@ -122,10 +123,6 @@ class SyncServiceClass {
     contents: Awaited<ReturnType<typeof GitHubService.listContents>>,
     basePath: string,
   ): Promise<FileNode[]> {
-    const { generateFileId, inferLanguage } = await import('../utils/fileUtils').then(
-      (m) => ({ generateFileId: m.generateFileId, inferLanguage: (name: string) => name }),
-    );
-
     const nodes: FileNode[] = [];
 
     for (const item of contents) {
@@ -158,6 +155,7 @@ class SyncServiceClass {
           type: 'file',
           modifiedAt: now,
           size: item.size,
+          language: inferLanguage(item.name),
         });
       }
     }

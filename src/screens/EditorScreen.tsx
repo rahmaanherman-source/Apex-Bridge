@@ -5,7 +5,7 @@
  * The interface itself becomes the workspace — explorer + editor side by side.
  */
 
-import React, { useState, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import {
   View,
   Text,
@@ -22,20 +22,19 @@ import { EditorTabs } from '../components/editor/EditorTabs';
 import { FileExplorer } from '../components/explorer/FileExplorer';
 import { Spacing } from '../theme/spacing';
 import { Typography } from '../theme/typography';
+import type { ThemeColors } from '../theme/colors';
 import { inferLanguage } from '../utils/syntaxTokenizer';
 
 export function EditorScreen() {
   const { colors } = useTheme();
   const { tabs, activeTabId } = useEditorStore();
   const { explorerVisible, setExplorerVisible } = useFileStore();
-  const [showExplorer, setShowExplorer] = useState(explorerVisible);
 
   const activeTab = tabs.find((t) => t.id === activeTabId);
 
   const toggleExplorer = useCallback(() => {
-    setShowExplorer((prev) => !prev);
-    setExplorerVisible(!showExplorer);
-  }, [showExplorer, setExplorerVisible]);
+    setExplorerVisible(!explorerVisible);
+  }, [explorerVisible, setExplorerVisible]);
 
   const language = activeTab ? inferLanguage(activeTab.filename) : undefined;
 
@@ -46,7 +45,7 @@ export function EditorScreen() {
       {/* Top toolbar */}
       <View style={[styles.toolbar, { backgroundColor: colors.surface, borderBottomColor: colors.border }]}>
         <TouchableOpacity onPress={toggleExplorer} style={styles.toolbarButton}>
-          <Text style={[styles.toolbarIcon, { color: showExplorer ? colors.accent : colors.textTertiary }]}>
+          <Text style={[styles.toolbarIcon, { color: explorerVisible ? colors.accent : colors.textTertiary }]}>
             📁
           </Text>
         </TouchableOpacity>
@@ -60,7 +59,7 @@ export function EditorScreen() {
 
       <View style={styles.workspace}>
         {/* File explorer panel */}
-        {showExplorer && (
+        {explorerVisible && (
           <View style={[styles.explorerPanel, { borderRightColor: colors.border }]}>
             <FileExplorer />
           </View>
@@ -85,7 +84,7 @@ export function EditorScreen() {
   );
 }
 
-function EmptyEditorState({ colors }: { colors: any }) {
+function EmptyEditorState({ colors }: { colors: ThemeColors }) {
   return (
     <View style={styles.emptyState}>
       <Text style={styles.emptyIcon}>✍️</Text>

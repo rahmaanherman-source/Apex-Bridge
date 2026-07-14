@@ -27,8 +27,8 @@ import { TimingFast } from '../../theme/animations';
 interface FileTreeNodeProps {
   node: FileNode;
   depth?: number;
-  isExpanded?: boolean;
-  isSelected?: boolean;
+  expandedPaths: Set<string>;
+  selectedPath: string | null;
   onFilePress: (node: FileNode) => void;
   onDirectoryPress: (node: FileNode) => void;
 }
@@ -36,13 +36,19 @@ interface FileTreeNodeProps {
 export function FileTreeNode({
   node,
   depth = 0,
-  isExpanded = false,
-  isSelected = false,
+  expandedPaths,
+  selectedPath,
   onFilePress,
   onDirectoryPress,
 }: FileTreeNodeProps) {
   const { colors } = useTheme();
+  const isExpanded = expandedPaths.has(node.path);
+  const isSelected = selectedPath === node.path;
   const rotateValue = useSharedValue(isExpanded ? 1 : 0);
+
+  React.useEffect(() => {
+    rotateValue.value = withTiming(isExpanded ? 1 : 0, TimingFast);
+  }, [isExpanded, rotateValue]);
 
   const arrowStyle = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotateValue.value * 90}deg` }],
@@ -111,53 +117,19 @@ export function FileTreeNode({
       {node.type === 'directory' && isExpanded && node.children && (
         <>
           {node.children.map((child) => (
-            <FileTreeNodeWrapper
+            <FileTreeNode
               key={child.id}
               node={child}
               depth={depth + 1}
+              expandedPaths={expandedPaths}
+              selectedPath={selectedPath}
               onFilePress={onFilePress}
               onDirectoryPress={onDirectoryPress}
-              selectedPath={isSelected ? '' : undefined}
             />
           ))}
         </>
       )}
     </>
-  );
-}
-
-/** Wrapper that connects node to the file store for selection/expansion state */
-function FileTreeNodeWrapper({
-  node,
-  depth,
-  onFilePress,
-  onDirectoryPress,
-  selectedPath,
-}: {
-  node: FileNode;
-  depth: number;
-  onFilePress: (n: FileNode) => void;
-  onDirectoryPress: (n: FileNode) => void;
-  selectedPath?: string;
-}) {
-  // In a real implementation, this would read from the file store
-  // For simplicity, we keep local state here
-  const [expanded, setExpanded] = React.useState(false);
-
-  const handleDirectoryPress = (n: FileNode) => {
-    setExpanded((prev) => !prev);
-    onDirectoryPress(n);
-  };
-
-  return (
-    <FileTreeNode
-      node={node}
-      depth={depth}
-      isExpanded={expanded}
-      isSelected={selectedPath === node.path}
-      onFilePress={onFilePress}
-      onDirectoryPress={handleDirectoryPress}
-    />
   );
 }
 

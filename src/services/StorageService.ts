@@ -2,7 +2,7 @@
  * Storage Service
  *
  * Offline-first local storage engine.
- * Uses expo-sqlite to mirror git repository structure.
+ * Uses secure local key-value storage to persist settings and project metadata.
  * Optimized for instant read/write — offline mode is liberation, not compromise.
  *
  * "Offline mode is a feature of liberation. It is the ability to build

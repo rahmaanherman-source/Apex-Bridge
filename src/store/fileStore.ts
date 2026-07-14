@@ -47,7 +47,9 @@ export const useFileStore = create<FileState>((set, get) => ({
   setFiles: (files) => set({ files: sortFileNodes(files) }),
 
   addFile: (parentPath, name, type) => {
-    const path = `${parentPath}/${name}`;
+    const normalizedParentPath =
+      parentPath === '/' ? '' : parentPath.replace(/\/+$/, '');
+    const path = `${normalizedParentPath}/${name}` || `/${name}`;
     const newNode: FileNode = {
       id: generateFileId(path),
       name,
@@ -99,17 +101,40 @@ export const useFileStore = create<FileState>((set, get) => ({
 
   renameFile: (filePath, newName) =>
     set((state) => {
+      function updateChildPaths(nodes: FileNode[] | undefined, parentOldPath: string, parentNewPath: string): FileNode[] | undefined {
+        return nodes?.map((node) => {
+          const nextPath = node.path.replace(parentOldPath, parentNewPath);
+          return {
+            ...node,
+            path: nextPath,
+            children: updateChildPaths(node.children, node.path, nextPath),
+          };
+        });
+      }
+
       function renameNode(nodes: FileNode[]): FileNode[] {
         return nodes.map((n) => {
           if (n.path === filePath) {
             const newPath = filePath.replace(/[^/]+$/, newName);
-            return { ...n, name: newName, path: newPath };
+            return {
+              ...n,
+              name: newName,
+              path: newPath,
+              children: updateChildPaths(n.children, n.path, newPath),
+            };
           }
           if (n.children) return { ...n, children: renameNode(n.children) };
           return n;
         });
       }
-      return { files: renameNode(state.files) };
+
+      const nextFiles = renameNode(state.files);
+      const nextSelectedFilePath =
+        state.selectedFilePath && state.selectedFilePath.startsWith(filePath)
+          ? state.selectedFilePath.replace(filePath, filePath.replace(/[^/]+$/, newName))
+          : state.selectedFilePath;
+
+      return { files: nextFiles, selectedFilePath: nextSelectedFilePath };
     }),
 
   updateContent: (fileId, content) =>

@@ -1,5 +1,5 @@
 /**
- * Apex Breeze Theme — Unified export
+ * Apex Bridge Theme — Unified export
  *
  * Import everything you need from this single entry point:
  *   import { BreezeColors, Spacing, Typography, SpringBreeze } from '@theme';

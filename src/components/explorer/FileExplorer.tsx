@@ -10,10 +10,11 @@ import {
   View,
   Text,
   TextInput,
+  Modal,
   TouchableOpacity,
+  Pressable,
   FlatList,
   StyleSheet,
-  Alert,
 } from 'react-native';
 import { useTheme } from '../../hooks/useTheme';
 import { useFileSystem } from '../../hooks/useFileSystem';
@@ -28,6 +29,7 @@ export function FileExplorer() {
   const {
     files,
     selectedFilePath,
+    expandedDirs,
     repositoryName,
     openFile,
     toggleDirectory,
@@ -37,7 +39,8 @@ export function FileExplorer() {
   } = useFileSystem();
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [expandedPaths, setExpandedPaths] = useState<Set<string>>(new Set());
+  const [draftName, setDraftName] = useState('');
+  const [createMode, setCreateMode] = useState<'file' | 'directory' | null>(null);
 
   const handleFilePress = useCallback(
     (node: FileNode) => openFile(node),
@@ -45,46 +48,36 @@ export function FileExplorer() {
   );
 
   const handleDirectoryPress = useCallback((node: FileNode) => {
-    setExpandedPaths((prev) => {
-      const next = new Set(prev);
-      if (next.has(node.path)) {
-        next.delete(node.path);
-      } else {
-        next.add(node.path);
-      }
-      return next;
-    });
-  }, []);
+    toggleDirectory(node.path);
+  }, [toggleDirectory]);
 
   const handleNewFile = useCallback(() => {
-    Alert.prompt(
-      'New File',
-      'Enter file name:',
-      (name) => {
-        if (name?.trim()) {
-          const parent = files[0]?.path ?? '/';
-          createFile(parent, name.trim());
-        }
-      },
-      'plain-text',
-      '',
-    );
-  }, [files, createFile]);
+    setDraftName('');
+    setCreateMode('file');
+  }, []);
 
   const handleNewFolder = useCallback(() => {
-    Alert.prompt(
-      'New Folder',
-      'Enter folder name:',
-      (name) => {
-        if (name?.trim()) {
-          const parent = files[0]?.path ?? '/';
-          createDirectory(parent, name.trim());
-        }
-      },
-      'plain-text',
-      '',
-    );
-  }, [files, createDirectory]);
+    setDraftName('');
+    setCreateMode('directory');
+  }, []);
+
+  const closeCreateModal = useCallback(() => {
+    setDraftName('');
+    setCreateMode(null);
+  }, []);
+
+  const submitCreate = useCallback(() => {
+    const trimmed = draftName.trim();
+    if (!trimmed || !createMode) return;
+
+    const parent = files[0]?.path ?? '/';
+    if (createMode === 'file') {
+      createFile(parent, trimmed);
+    } else {
+      createDirectory(parent, trimmed);
+    }
+    closeCreateModal();
+  }, [closeCreateModal, createDirectory, createFile, createMode, draftName, files]);
 
   // Flatten the tree for search
   const filteredFiles = searchQuery.trim()
@@ -140,8 +133,8 @@ export function FileExplorer() {
             <FileTreeNode
               node={item}
               depth={0}
-              isExpanded={false}
-              isSelected={selectedFilePath === item.path}
+              expandedPaths={expandedDirs}
+              selectedPath={selectedFilePath}
               onFilePress={handleFilePress}
               onDirectoryPress={handleDirectoryPress}
             />
@@ -161,8 +154,8 @@ export function FileExplorer() {
             <FileTreeNode
               node={item}
               depth={0}
-              isExpanded={expandedPaths.has(item.path)}
-              isSelected={selectedFilePath === item.path}
+              expandedPaths={expandedDirs}
+              selectedPath={selectedFilePath}
               onFilePress={handleFilePress}
               onDirectoryPress={handleDirectoryPress}
             />
@@ -180,6 +173,50 @@ export function FileExplorer() {
           }
         />
       )}
+
+      <Modal
+        animationType="fade"
+        transparent
+        visible={createMode !== null}
+        onRequestClose={closeCreateModal}
+      >
+        <Pressable style={styles.modalOverlay} onPress={closeCreateModal}>
+          <Pressable
+            style={[styles.modalCard, { backgroundColor: colors.surfaceElevated, borderColor: colors.border }]}
+            onPress={(event) => event.stopPropagation()}
+          >
+            <Text style={[styles.modalTitle, { color: colors.textPrimary }]}>
+              {createMode === 'file' ? 'New File' : 'New Folder'}
+            </Text>
+            <TextInput
+              value={draftName}
+              onChangeText={setDraftName}
+              placeholder={createMode === 'file' ? 'example.ts' : 'src'}
+              placeholderTextColor={colors.textPlaceholder}
+              style={[
+                styles.modalInput,
+                {
+                  color: colors.textPrimary,
+                  backgroundColor: colors.background,
+                  borderColor: colors.border,
+                },
+              ]}
+              autoFocus
+              autoCapitalize="none"
+              autoCorrect={false}
+              onSubmitEditing={submitCreate}
+            />
+            <View style={styles.modalActions}>
+              <TouchableOpacity onPress={closeCreateModal} style={styles.modalButton}>
+                <Text style={[styles.modalButtonText, { color: colors.textSecondary }]}>Cancel</Text>
+              </TouchableOpacity>
+              <TouchableOpacity onPress={submitCreate} style={styles.modalButton}>
+                <Text style={[styles.modalButtonText, { color: colors.accent }]}>Create</Text>
+              </TouchableOpacity>
+            </View>
+          </Pressable>
+        </Pressable>
+      </Modal>
     </View>
   );
 }
@@ -239,5 +276,40 @@ const styles = StyleSheet.create({
   emptySubtext: {
     fontSize: Typography.fontSize.sm,
     textAlign: 'center',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    justifyContent: 'center',
+    padding: Spacing.xl,
+  },
+  modalCard: {
+    borderRadius: BorderRadius.xl,
+    borderWidth: 1,
+    padding: Spacing.xl,
+    gap: Spacing.lg,
+  },
+  modalTitle: {
+    fontSize: Typography.fontSize.lg,
+    fontWeight: Typography.fontWeight.semibold,
+  },
+  modalInput: {
+    fontSize: Typography.fontSize.base,
+    paddingHorizontal: Spacing.lg,
+    paddingVertical: Spacing.md,
+    borderRadius: BorderRadius.md,
+    borderWidth: 1,
+  },
+  modalActions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: Spacing.lg,
+  },
+  modalButton: {
+    paddingVertical: Spacing.sm,
+  },
+  modalButtonText: {
+    fontSize: Typography.fontSize.sm,
+    fontWeight: Typography.fontWeight.medium,
   },
 });

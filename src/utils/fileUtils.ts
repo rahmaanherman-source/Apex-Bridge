@@ -145,7 +145,7 @@ export function createWelcomeProject(): FileNode {
         type: 'file',
         modifiedAt: now,
         language: 'markdown',
-        content: `# My First Project\n\nWelcome to Apex Breeze! 🌬️\n\n> *"Drift in, breathe easy, and let your ideas move freely forward—where hope moves with you."*\n\n## Getting Started\n\nThis is your first project. Edit this file, create new ones, and when you're ready — sync to GitHub.\n\nYou are exactly where you need to be.\n`,
+        content: `# My First Project\n\nWelcome to Apex Bridge! 🌉\n\n> *"A calm mobile workspace for building, syncing, and moving your ideas forward."*\n\n## Getting Started\n\nThis is your first project. Edit this file, create new ones, and when you're ready — sync to GitHub.\n\nYou are exactly where you need to be.\n`,
       },
       {
         id: 'src-dir',
@@ -161,7 +161,7 @@ export function createWelcomeProject(): FileNode {
             type: 'file',
             modifiedAt: now,
             language: 'typescript',
-            content: `/**\n * Hello, Apex Breeze!\n *\n * This is your first TypeScript file.\n * Every line here is a small act of hope.\n */\n\nconst greeting = 'Welcome to Apex Breeze';\n\nfunction breathe(message: string): void {\n  console.log(\`🌬️  \${message}\`);\n}\n\nbreathe(greeting);\n`,
+            content: `/**\n * Hello, Apex Bridge!\n *\n * This is your first TypeScript file.\n * Every line here is a small act of progress.\n */\n\nconst greeting = 'Welcome to Apex Bridge';\n\nfunction connect(message: string): void {\n  console.log(\`🌉  \${message}\`);\n}\n\nconnect(greeting);\n`,
           },
         ],
       },

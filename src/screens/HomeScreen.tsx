@@ -1,5 +1,5 @@
 /**
- * HomeScreen — The Apex Breeze dashboard
+ * HomeScreen — The Apex Bridge dashboard
  *
  * Shows recent projects, quick actions, and GitHub connection status.
  * The place you drift in to each morning.
@@ -102,7 +102,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
             {user?.name ? `, ${user.name.split(' ')[0]}` : ''}
           </Text>
           <Text style={[styles.brandText, { color: colors.textPrimary }]}>
-            Apex Breeze 🌬️
+            Apex Bridge 🌉
           </Text>
           <Text style={[styles.quoteText, { color: colors.textTertiary }]}>
             {"Drift in, breathe easy."}
@@ -177,7 +177,7 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
         {/* Identity quote */}
         <View style={styles.identityQuote}>
           <Text style={[styles.identityText, { color: colors.textTertiary }]}>
-            {'"Apex Breeze is that quiet shift in the air that reminds you there\'s still time."'}
+            {'"Apex Bridge keeps your ideas moving forward with calm, connected focus."'}
           </Text>
         </View>
       </ScrollView>
@@ -200,11 +200,12 @@ function QuickActionCard({ icon, label, color, index, onPress }: QuickActionCard
 
   React.useEffect(() => {
     const delay = staggerDelay(index);
-    setTimeout(() => {
+    const timer = setTimeout(() => {
       scale.value = withSpring(1, SpringBreeze);
       opacity.value = withSpring(1, SpringBreeze);
     }, delay);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+    return () => clearTimeout(timer);
+  }, [index, opacity, scale]);
 
   const animStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }],

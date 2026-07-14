@@ -1,7 +1,7 @@
 /**
  * SyntaxHighlighter — Earth-tone code display
  *
- * Renders tokenized source code with the Breeze color palette.
+ * Renders tokenized source code with the Bridge color palette.
  * Colors drawn from nature at twilight — they guide, not demand.
  * "These colors do not shout; they whisper."
  */

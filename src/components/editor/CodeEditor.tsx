@@ -1,5 +1,5 @@
 /**
- * CodeEditor — The heart of Apex Breeze
+ * CodeEditor — The heart of Apex Bridge
  *
  * A mobile-first code editor with syntax highlighting, autosave,
  * and a calming writing experience.
@@ -14,13 +14,10 @@ import {
   Text,
   StyleSheet,
   ScrollView,
-  type TextInputProps,
 } from 'react-native';
-import { useEditorStore } from '../../store/editorStore';
 import { useEditor } from '../../hooks/useEditor';
 import { useTheme } from '../../hooks/useTheme';
 import { SyntaxHighlighter } from './SyntaxHighlighter';
-import { EditorTabs } from './EditorTabs';
 import { Spacing } from '../../theme/spacing';
 import { Typography } from '../../theme/typography';
 import { BreezeColors } from '../../theme/colors';

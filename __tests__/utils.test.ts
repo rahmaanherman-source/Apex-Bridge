@@ -1,5 +1,5 @@
 /**
- * Utility tests for Apex Breeze
+ * Utility tests for Apex Bridge
  *
  * Tests for pure utility functions: encryption, tokenizer, file utils, git utils.
  * These tests do NOT require a device or Expo runtime.
@@ -274,7 +274,7 @@ describe('File Utilities', () => {
       const project = createWelcomeProject();
       const readme = project.children!.find((n) => n.name === 'README.md');
       expect(readme).toBeTruthy();
-      expect(readme?.content).toContain('Apex Breeze');
+      expect(readme?.content).toContain('Apex Bridge');
     });
   });
 });

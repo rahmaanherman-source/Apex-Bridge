@@ -91,6 +91,7 @@ export const BreezeColors = {
 } as const;
 
 export type BreezeColor = keyof typeof BreezeColors;
+export type ThemeColors = { [K in BreezeColor]: string };
 
 /** Returns a color with applied opacity */
 export function withOpacity(color: string, opacity: number): string {
