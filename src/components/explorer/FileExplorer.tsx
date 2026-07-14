@@ -35,7 +35,6 @@ export function FileExplorer() {
     toggleDirectory,
     createFile,
     createDirectory,
-    deleteFile,
   } = useFileSystem();
 
   const [searchQuery, setSearchQuery] = useState('');

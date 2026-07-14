@@ -63,14 +63,14 @@ export function SyntaxHighlighter({
                 {lineTokens.map((token: Token, tokenIndex: number) => (
                   <Text
                     key={tokenIndex}
-                    style={{ color: token.color, fontSize, fontFamily: 'SpaceMono' }}
+                    style={{ color: token.color, fontSize, fontFamily: Typography.fontFamily.mono }}
                   >
                     {token.value}
                   </Text>
                 ))}
                 {/* Ensure empty lines have height */}
                 {lineTokens.length === 0 && (
-                  <Text style={{ fontSize, fontFamily: 'SpaceMono', color: 'transparent' }}>
+                  <Text style={{ fontSize, fontFamily: Typography.fontFamily.mono, color: 'transparent' }}>
                     {' '}
                   </Text>
                 )}
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
     paddingRight: Spacing.lg,
     opacity: 0.5,
-    fontFamily: 'SpaceMono',
+    fontFamily: Typography.fontFamily.mono,
     lineHeight: Typography.fontSize.base * Typography.lineHeight.code,
   },
   lineContent: {

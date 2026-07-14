@@ -89,8 +89,8 @@ export function VaultScreen() {
               Your secrets are protected
             </Text>
             <Text style={[styles.securityDesc, { color: colors.textSecondary }]}>
-              All tokens are encrypted with AES-256 and stored in your device's secure enclave.
-              They never leave your device in plaintext.
+              {"All tokens are encrypted with AES-256 and stored in your device's secure enclave. "}
+              {'They never leave your device in plaintext.'}
             </Text>
           </View>
         </BreezeCard>

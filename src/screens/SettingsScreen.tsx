@@ -19,7 +19,7 @@ import {
 import { useTheme } from '../hooks/useTheme';
 import { useEditorStore } from '../store/editorStore';
 import { BreezeCard } from '../components/common/BreezeCard';
-import { Spacing, BorderRadius } from '../theme/spacing';
+import { Spacing } from '../theme/spacing';
 import { Typography } from '../theme/typography';
 
 export function SettingsScreen() {
@@ -133,7 +133,7 @@ export function SettingsScreen() {
           />
           <SettingDivider colors={colors} />
           <SettingRow
-            label="About Apex Breeze"
+            label="About Apex Bridge"
             description="Version 1.0.0"
             colors={colors}
             rightContent={

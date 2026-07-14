@@ -9,15 +9,13 @@
  */
 
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
   withTiming,
   withDelay,
   withSpring,
-  withSequence,
-  withRepeat,
   Easing,
   runOnJS,
 } from 'react-native-reanimated';
@@ -25,8 +23,6 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { BreezeColors } from '../../theme/colors';
 import { Duration, SpringGentle, EaseBreeze } from '../../theme/animations';
 import { Typography } from '../../theme/typography';
-
-const { width, height } = Dimensions.get('window');
 
 interface WelcomeAnimationProps {
   onComplete: () => void;
@@ -144,7 +140,7 @@ export function WelcomeAnimation({ onComplete }: WelcomeAnimationProps) {
       {/* Logo */}
       <Animated.View style={[styles.logoContainer, logoStyle]}>
         <Text style={styles.logoText}>🌬️</Text>
-        <Text style={styles.appName}>Apex Breeze</Text>
+        <Text style={styles.appName}>Apex Bridge</Text>
       </Animated.View>
 
       {/* Tagline */}

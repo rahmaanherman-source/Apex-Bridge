@@ -6,7 +6,7 @@
  */
 
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { Text, StyleSheet } from 'react-native';
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -14,13 +14,10 @@ import Animated, {
   withDelay,
   withTiming,
 } from 'react-native-reanimated';
-import { LinearGradient } from 'expo-linear-gradient';
 import { BreezeColors } from '../../theme/colors';
 import { SpringGentle, Duration } from '../../theme/animations';
 import { Typography } from '../../theme/typography';
 import { Spacing } from '../../theme/spacing';
-
-const { width } = Dimensions.get('window');
 
 export interface OnboardingSlideData {
   id: string;
@@ -35,7 +32,7 @@ export const ONBOARDING_SLIDES: OnboardingSlideData[] = [
   {
     id: 'welcome',
     emoji: '🌬️',
-    title: 'Welcome to Apex Breeze',
+    title: 'Welcome to Apex Bridge',
     subtitle: 'Your sanctuary for mobile development',
     description:
       'A workspace where the act of creation becomes a form of meditation. Calm, warm, and intuitive — designed for how you actually think.',
@@ -129,7 +126,7 @@ export function OnboardingSlide({ slide, isActive }: OnboardingSlideProps) {
 
 const styles = StyleSheet.create({
   container: {
-    width,
+    width: '100%',
     paddingHorizontal: Spacing['4xl'],
     alignItems: 'center',
     gap: Spacing['2xl'],

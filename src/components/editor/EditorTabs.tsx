@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import { useEditorStore } from '../../store/editorStore';
 import { useTheme } from '../../hooks/useTheme';
-import { Spacing, BorderRadius } from '../../theme/spacing';
+import { Spacing } from '../../theme/spacing';
 import { Typography } from '../../theme/typography';
 import { getFileIcon } from '../../utils/fileUtils';
 

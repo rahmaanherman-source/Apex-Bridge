@@ -1,9 +1,7 @@
 /**
  * Apex Bridge — Main Application Entry
  *
- * "Apex Breeze is that quiet shift in the air that reminds you there's still time.
- *  Drift in, breathe easy, and let your ideas move freely forward—
- *  where hope moves with you."
+ * "Apex Bridge keeps your ideas moving forward with calm, connected focus."
  *
  * Architecture:
  *  ┌──────────────────────────────────────────────────────┐
@@ -29,7 +27,7 @@ import { StatusBar } from 'expo-status-bar';
 import * as SplashScreen from 'expo-splash-screen';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { AppNavigator } from './src/navigation/AppNavigator';
 import { WelcomeAnimation } from './src/components/onboarding/WelcomeAnimation';

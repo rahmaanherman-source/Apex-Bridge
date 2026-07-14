@@ -1,5 +1,5 @@
 /**
- * Apex Breeze Spacing System
+ * Apex Bridge Spacing System
  *
  * Consistent spatial rhythm based on a 4pt grid.
  * Thumb-friendly touch targets, breathable layouts.

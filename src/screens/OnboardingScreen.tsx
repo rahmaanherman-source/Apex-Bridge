@@ -124,7 +124,7 @@ export function OnboardingScreen() {
         )}
 
         <BreezeButton
-          label={isLast ? "Let's Begin 🌬️" : 'Continue →'}
+          label={isLast ? "Let's Begin 🌉" : 'Continue →'}
           onPress={goToNext}
           variant="primary"
           size="lg"
@@ -134,7 +134,7 @@ export function OnboardingScreen() {
 
       {/* Quote at bottom */}
       <Text style={styles.quote}>
-        "where hope moves with you"
+        {'"where hope moves with you"'}
       </Text>
     </SafeAreaView>
   );

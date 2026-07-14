@@ -1,5 +1,5 @@
 /**
- * Apex Breeze Motion System
+ * Apex Bridge Motion System
  *
  * Fluid, physics-inspired animations that mimic air currents.
  * Transitions carry momentum — like a breeze parting clouds.

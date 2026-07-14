@@ -30,7 +30,7 @@ import { SyncHistoryScreen } from '../screens/SyncHistoryScreen';
 
 import { useAuthStore } from '../store/authStore';
 import { useTheme } from '../hooks/useTheme';
-import { BreezeColors } from '../theme/colors';
+import { BreezeColors, type ThemeColors } from '../theme/colors';
 import { Spacing, BorderRadius } from '../theme/spacing';
 import { Typography } from '../theme/typography';
 import { SpringSnappy } from '../theme/animations';
@@ -59,7 +59,7 @@ interface FlowTabBarProps {
   navigation: any;
 }
 
-/** Custom Flow Tab Bar — the hallmark navigation of Apex Breeze */
+/** Custom Flow Tab Bar — the hallmark navigation of Apex Bridge */
 function FlowTabBar({ state, navigation }: FlowTabBarProps) {
   const { colors } = useTheme();
 
@@ -95,7 +95,7 @@ function FlowTabBar({ state, navigation }: FlowTabBarProps) {
 interface FlowTabItemProps {
   item: FlowTabItem;
   isActive: boolean;
-  colors: typeof BreezeColors;
+  colors: ThemeColors;
   onPress: () => void;
 }
 

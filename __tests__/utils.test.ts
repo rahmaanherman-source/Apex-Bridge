@@ -40,7 +40,7 @@ import {
 // ── Encryption Tests ─────────────────────────────────────────────────────────
 
 describe('Encryption Utilities', () => {
-  const passphrase = 'test-passphrase-apex-breeze';
+  const passphrase = 'test-passphrase-apex-bridge';
   const plaintext = 'ghp_secret_github_token_here_1234567890';
 
   it('encrypts and decrypts a string correctly', () => {

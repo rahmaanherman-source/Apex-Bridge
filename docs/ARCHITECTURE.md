@@ -1,10 +1,10 @@
-# Apex Breeze — Architecture Overview
+# Apex Bridge — Architecture Overview
 
-> *"Apex Breeze is that quiet shift in the air that reminds you there's still time. Drift in, breathe easy, and let your ideas move freely forward—where hope moves with you."*
+> *"Apex Bridge keeps your ideas moving forward with calm, connected focus."*
 
 ## Philosophy
 
-Apex Breeze is not merely a code editor for mobile. It is a sanctuary for the mind where the act of creation becomes a form of meditation. Every architectural decision is guided by three principles:
+Apex Bridge is not merely a code editor for mobile. It is a sanctuary for the mind where the act of creation becomes a form of meditation. Every architectural decision is guided by three principles:
 
 1. **Clarity** — The structure should be immediately understandable. No hidden magic, no opaque abstractions.
 2. **Comfort** — The interface reduces cognitive load. Colors whisper. Transitions breathe. Nothing demands attention.
@@ -15,7 +15,7 @@ Apex Breeze is not merely a code editor for mobile. It is a sanctuary for the mi
 ## Project Structure
 
 ```
-apex-breeze/
+apex-bridge/
 ├── App.tsx                          # Entry point — initialization & welcome animation
 ├── app.json                         # Expo configuration
 ├── package.json                     # Dependencies
@@ -24,7 +24,7 @@ apex-breeze/
 │
 ├── assets/
 │   └── fonts/
-│       └── SpaceMono-Regular.ttf    # Code editor font
+│       └── README.md                # Optional custom monospace font notes
 │
 ├── src/
 │   ├── theme/                       # Visual language
@@ -187,7 +187,7 @@ The Breeze motion system is built on three principles:
 
 ## Offline Architecture
 
-Apex Breeze treats offline as the primary mode, not a fallback:
+Apex Bridge treats offline as the primary mode, not a fallback:
 
 1. **All file content** is written to `expo-secure-store` by `AutosaveService` after each pause in typing
 2. **Project trees** are serialized and stored locally in `StorageService`
@@ -226,7 +226,7 @@ When connectivity is restored, the user can manually trigger a push from the Syn
 
 ## Identity
 
-> *"Apex Breeze does not demand you to be always on, always brilliant. It learns the rhythm of your doubt — the way your cursor hesitates before a refactor, the silence after a failed test — and holds that space with reverence, not judgment."*
+> *"Apex Bridge does not demand that you always be on or always be brilliant. It respects the rhythm of your work and keeps your ideas within reach."*
 
 Every line of code in this project is written with the intent of removing friction and adding meaning. It is a space where the chaos of problem-solving is organized into a serene landscape of possibility.
 

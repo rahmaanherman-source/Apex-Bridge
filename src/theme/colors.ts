@@ -1,5 +1,5 @@
 /**
- * Apex Breeze Color Palette
+ * Apex Bridge Color Palette
  *
  * Scientifically curated for eye comfort with biophilic design principles.
  * Colors are drawn from nature at twilight — they whisper, not shout.

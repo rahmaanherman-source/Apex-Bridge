@@ -7,7 +7,7 @@
  * "The editor is not just a workspace — it is a quiet companion."
  */
 
-import React, { useCallback, useRef } from 'react';
+import React, { useRef } from 'react';
 import {
   View,
   TextInput,
@@ -36,8 +36,8 @@ interface CodeEditorProps {
  * This pattern provides native mobile keyboard behavior with beautiful highlighting.
  */
 export function CodeEditor({ tabId, filename, language }: CodeEditorProps) {
-  const { colors, typography } = useTheme();
-  const { content, isDirty, fontSize, wordWrap, showLineNumbers, handleContentChange } =
+  const { colors } = useTheme();
+  const { content, isDirty, fontSize, showLineNumbers, handleContentChange } =
     useEditor(tabId);
 
   const scrollRef = useRef<ScrollView>(null);
@@ -71,7 +71,7 @@ export function CodeEditor({ tabId, filename, language }: CodeEditorProps) {
                 {
                   fontSize,
                   color: 'transparent', // Hidden — syntax highlighter renders above it
-                  fontFamily: 'SpaceMono',
+                  fontFamily: Typography.fontFamily.mono,
                 },
               ]}
               autoCorrect={false}
@@ -132,7 +132,7 @@ function LineNumberGutter({
             color,
             lineHeight: fontSize * Typography.lineHeight.code,
             textAlign: 'right',
-            fontFamily: 'SpaceMono',
+            fontFamily: Typography.fontFamily.mono,
             opacity: 0.5,
           }}
         >

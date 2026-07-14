@@ -1,6 +1,6 @@
-# 🌬️ Apex Breeze
+# 🌉 Apex Bridge
 
-> *"Apex Breeze is that quiet shift in the air that reminds you there's still time. Drift in, breathe easy, and let your ideas move freely forward—where hope moves with you."*
+> *"Apex Bridge keeps your ideas moving forward with calm, connected focus."*
 
 A mobile-first development workspace designed for **clarity, comfort, and confidence**. Not just another code editor — a sanctuary for the mind where the act of creation becomes a form of meditation.
 
@@ -41,7 +41,7 @@ A mobile-first development workspace designed for **clarity, comfort, and confid
 ## 📂 Project Structure
 
 ```
-apex-breeze/
+apex-bridge/
 ├── App.tsx                    # Entry point + welcome animation
 ├── src/
 │   ├── theme/                 # Colors, typography, spacing, animations
@@ -74,14 +74,14 @@ apex-breeze/
 
 ```bash
 # Clone the repository
-git clone https://github.com/rahmaanherman-source/Apex-Breeze.git
-cd Apex-Breeze
+git clone https://github.com/rahmaanherman-source/Apex-Bridge.git
+cd Apex-Bridge
 
 # Install dependencies
 npm install
 
-# Download SpaceMono font (optional — falls back to system monospace)
-# Place SpaceMono-Regular.ttf in assets/fonts/
+# Optional: create a .env file from .env.example for GitHub OAuth metadata
+cp .env.example .env
 
 # Start the development server
 npm start
@@ -93,13 +93,14 @@ npm start
 npm run ios      # iOS Simulator
 npm run android  # Android Emulator
 npm run web      # Web browser (limited features)
+npm run build    # Production web export
 ```
 
 ---
 
 ## 🔐 Security
 
-All credentials are protected by a **two-layer encryption model**:
+All credentials are protected by a **two-layer secure storage model**:
 
 1. **OS Secure Enclave** — `expo-secure-store` uses iOS Keychain / Android Keystore
 2. **AES-256-CBC** — An additional encryption layer wraps secrets using PBKDF2 key derivation (100,000 iterations, SHA-256)
@@ -123,7 +124,7 @@ See [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) for:
 
 > *"Colors drawn from nature at twilight — they whisper, not shout."*
 
-The Apex Breeze palette uses **biophilic design** principles:
+The Apex Bridge palette uses **biophilic design** principles:
 - 🟦 Deep indigo background — calming, focused
 - 🟩 Sage green for functions — nature, growth
 - 🟧 Soft amber for keywords — warmth, clarity
@@ -134,7 +135,7 @@ The Apex Breeze palette uses **biophilic design** principles:
 
 ## 💙 Philosophy
 
-Apex Breeze is a manifesto for a better way to work. By prioritizing the human element — the psychology of the creator, the need for calm, the desire for flow — it transforms a utility into a companion.
+Apex Bridge is a manifesto for a better way to work. By prioritizing the human element — the psychology of the creator, the need for calm, the desire for flow — it transforms a utility into a companion.
 
 Every pixel, every function, every animation is designed with the intent of **removing friction and adding meaning**.
 

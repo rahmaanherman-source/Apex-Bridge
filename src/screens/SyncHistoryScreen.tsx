@@ -202,12 +202,11 @@ export function SyncHistoryScreen() {
           </View>
         )}
 
-        {history.map((record, index) => (
+        {history.map((record) => (
           <SyncRecordCard
             key={record.id}
             record={record}
             colors={colors}
-            isFirst={index === 0}
           />
         ))}
       </ScrollView>
@@ -218,11 +217,9 @@ export function SyncHistoryScreen() {
 function SyncRecordCard({
   record,
   colors,
-  isFirst,
 }: {
   record: SyncRecord;
   colors: any;
-  isFirst: boolean;
 }) {
   const statusColor = getSyncStatusColor(record.status);
 
@@ -279,7 +276,7 @@ const styles = StyleSheet.create({
   headerSubtitle: {
     fontSize: Typography.fontSize.xs,
     marginTop: Spacing.xs,
-    fontFamily: 'SpaceMono',
+    fontFamily: Typography.fontFamily.mono,
   },
   clearButton: {
     fontSize: Typography.fontSize.sm,
@@ -300,7 +297,7 @@ const styles = StyleSheet.create({
   },
   syncActionsRepo: {
     fontSize: Typography.fontSize.sm,
-    fontFamily: 'SpaceMono',
+    fontFamily: Typography.fontFamily.mono,
   },
   progressContainer: {
     gap: Spacing.sm,
@@ -414,6 +411,6 @@ const styles = StyleSheet.create({
   recordMessage: {
     fontSize: Typography.fontSize.xs,
     lineHeight: Typography.fontSize.xs * 1.5,
-    fontFamily: 'SpaceMono',
+    fontFamily: Typography.fontFamily.mono,
   },
 });

@@ -53,13 +53,14 @@ export function HomeScreen({ navigation }: HomeScreenProps) {
     (actionId: string) => {
       switch (actionId) {
         case 'new':
-        case 'open':
+        case 'open': {
           // Create a welcome project and navigate to editor
           const project = createWelcomeProject();
           setFiles([project]);
           setRepositoryName(project.name);
           navigation.navigate('Editor');
           break;
+        }
         case 'github':
           navigation.navigate('MainTabs', { screen: 'SyncHistory' });
           break;

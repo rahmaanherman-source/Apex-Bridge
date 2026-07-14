@@ -20,7 +20,6 @@ import {
 import * as Haptics from 'expo-haptics';
 import { useTheme } from '../hooks/useTheme';
 import { AVAILABLE_THEMES, type ThemeVariant } from '../store/themeStore';
-import { BreezeCard } from '../components/common/BreezeCard';
 import { Spacing, BorderRadius } from '../theme/spacing';
 import { Typography } from '../theme/typography';
 
@@ -81,7 +80,7 @@ export function ThemesScreen() {
                 >
                   <Text style={styles.themePreviewCode}>{"const"}</Text>
                   <Text style={[styles.themePreviewCode, { color: theme.colors.syntaxFunction }]}>
-                    {" breeze"}
+                    {" bridge"}
                   </Text>
                   <Text style={[styles.themePreviewCode, { color: theme.colors.syntaxOperator }]}>
                     {" ="}
@@ -183,7 +182,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   themePreviewCode: {
-    fontFamily: 'SpaceMono',
+    fontFamily: Typography.fontFamily.mono,
     fontSize: 14,
     color: '#eceff1',
   },

@@ -1,5 +1,5 @@
 /**
- * Apex Breeze Typography
+ * Apex Bridge Typography
  *
  * Clean, readable type scale that respects the developer's eyes.
  * Monospace for code, proportional for UI — each has its place.
@@ -9,7 +9,7 @@ export const Typography = {
   // ── Font Families ─────────────────────────────────────────────────────────
   fontFamily: {
     /** Code editor font — legible at any size */
-    mono: 'SpaceMono',
+    mono: 'monospace',
     /** UI font — warm and approachable */
     sans: 'System',
     /** System default */
