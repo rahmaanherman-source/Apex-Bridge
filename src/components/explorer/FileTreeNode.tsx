@@ -48,7 +48,7 @@ export function FileTreeNode({
 
   React.useEffect(() => {
     rotateValue.value = withTiming(isExpanded ? 1 : 0, TimingFast);
-  }, [isExpanded, rotateValue]);
+  }, [isExpanded]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const arrowStyle = useAnimatedStyle(() => ({
     transform: [{ rotate: `${rotateValue.value * 90}deg` }],

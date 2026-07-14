@@ -10,6 +10,14 @@ import { create } from 'zustand';
 import type { FileNode } from '../utils/fileUtils';
 import { updateFileContent, findFileByPath, sortFileNodes, generateFileId } from '../utils/fileUtils';
 
+function replaceNodePath(path: string, oldBasePath: string, newBasePath: string): string {
+  if (path === oldBasePath) return newBasePath;
+  if (path.startsWith(`${oldBasePath}/`)) {
+    return `${newBasePath}${path.slice(oldBasePath.length)}`;
+  }
+  return path;
+}
+
 interface FileState {
   /** Root-level file nodes */
   files: FileNode[];
@@ -48,8 +56,11 @@ export const useFileStore = create<FileState>((set, get) => ({
 
   addFile: (parentPath, name, type) => {
     const normalizedParentPath =
-      parentPath === '/' ? '' : parentPath.replace(/\/+$/, '');
-    const path = normalizedParentPath ? `${normalizedParentPath}/${name}` : `/${name}`;
+      parentPath === '/' ? '/' : parentPath.replace(/\/+$/, '');
+    const path =
+      normalizedParentPath === '/'
+        ? `/${name}`
+        : `${normalizedParentPath}/${name}`;
     const newNode: FileNode = {
       id: generateFileId(path),
       name,
@@ -114,9 +125,13 @@ export const useFileStore = create<FileState>((set, get) => ({
 
   renameFile: (filePath, newName) =>
     set((state) => {
-      function updateChildPaths(nodes: FileNode[] | undefined, parentOldPath: string, parentNewPath: string): FileNode[] | undefined {
+      function updateChildPaths(
+        nodes: FileNode[] | undefined,
+        parentOldPath: string,
+        parentNewPath: string,
+      ): FileNode[] | undefined {
         return nodes?.map((node) => {
-          const nextPath = node.path.replace(parentOldPath, parentNewPath);
+          const nextPath = replaceNodePath(node.path, parentOldPath, parentNewPath);
           return {
             ...node,
             path: nextPath,
@@ -142,9 +157,10 @@ export const useFileStore = create<FileState>((set, get) => ({
       }
 
       const nextFiles = renameNode(state.files);
+      const renamedPath = filePath.replace(/[^/]+$/, newName);
       const nextSelectedFilePath =
         state.selectedFilePath && state.selectedFilePath.startsWith(filePath)
-          ? state.selectedFilePath.replace(filePath, filePath.replace(/[^/]+$/, newName))
+          ? replaceNodePath(state.selectedFilePath, filePath, renamedPath)
           : state.selectedFilePath;
 
       return { files: nextFiles, selectedFilePath: nextSelectedFilePath };

@@ -53,6 +53,7 @@ module.exports = {
       ],
     ],
     extra: {
+      // Only public OAuth metadata belongs in Expo config.
       githubClientId: process.env.EXPO_PUBLIC_GITHUB_CLIENT_ID ?? '',
       githubRedirectUri:
         process.env.EXPO_PUBLIC_GITHUB_REDIRECT_URI ?? `${scheme}://oauth`,

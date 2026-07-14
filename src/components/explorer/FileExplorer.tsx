@@ -193,7 +193,12 @@ export function FileExplorer() {
         visible={createMode !== null}
         onRequestClose={closeCreateModal}
       >
-        <Pressable style={styles.modalOverlay} onPress={closeCreateModal}>
+        <Pressable
+          accessibilityLabel="Close dialog"
+          accessibilityRole="button"
+          style={styles.modalOverlay}
+          onPress={closeCreateModal}
+        >
           <Pressable
             style={[styles.modalCard, { backgroundColor: colors.surfaceElevated, borderColor: colors.border }]}
             onPress={(event) => event.stopPropagation()}
@@ -217,6 +222,7 @@ export function FileExplorer() {
               autoFocus
               autoCapitalize="none"
               autoCorrect={false}
+              accessibilityLabel={createMode === 'file' ? 'File name' : 'Folder name'}
               onSubmitEditing={submitCreate}
             />
             {createError ? (
