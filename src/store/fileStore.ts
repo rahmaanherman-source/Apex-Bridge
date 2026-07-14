@@ -49,7 +49,7 @@ export const useFileStore = create<FileState>((set, get) => ({
   addFile: (parentPath, name, type) => {
     const normalizedParentPath =
       parentPath === '/' ? '' : parentPath.replace(/\/+$/, '');
-    const path = `${normalizedParentPath}/${name}` || `/${name}`;
+    const path = normalizedParentPath ? `${normalizedParentPath}/${name}` : `/${name}`;
     const newNode: FileNode = {
       id: generateFileId(path),
       name,
@@ -62,6 +62,19 @@ export const useFileStore = create<FileState>((set, get) => ({
     };
 
     set((state) => {
+      function hasDuplicate(nodes: FileNode[]): boolean {
+        return nodes.some((node) => {
+          if (node.path === parentPath && node.type === 'directory') {
+            return (node.children ?? []).some((child) => child.name === name);
+          }
+          return node.children ? hasDuplicate(node.children) : false;
+        });
+      }
+
+      if (hasDuplicate(state.files)) {
+        throw new Error(`A file or folder named "${name}" already exists here.`);
+      }
+
       function insertNode(nodes: FileNode[]): FileNode[] {
         return nodes.map((n) => {
           if (n.path === parentPath && n.type === 'directory') {

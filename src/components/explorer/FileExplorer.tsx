@@ -39,6 +39,7 @@ export function FileExplorer() {
 
   const [searchQuery, setSearchQuery] = useState('');
   const [draftName, setDraftName] = useState('');
+  const [createError, setCreateError] = useState<string | null>(null);
   const [createMode, setCreateMode] = useState<'file' | 'directory' | null>(null);
 
   const handleFilePress = useCallback(
@@ -52,30 +53,43 @@ export function FileExplorer() {
 
   const handleNewFile = useCallback(() => {
     setDraftName('');
+    setCreateError(null);
     setCreateMode('file');
   }, []);
 
   const handleNewFolder = useCallback(() => {
     setDraftName('');
+    setCreateError(null);
     setCreateMode('directory');
   }, []);
 
   const closeCreateModal = useCallback(() => {
     setDraftName('');
+    setCreateError(null);
     setCreateMode(null);
   }, []);
 
   const submitCreate = useCallback(() => {
     const trimmed = draftName.trim();
-    if (!trimmed || !createMode) return;
+    if (!createMode) return;
+    if (!trimmed) {
+      setCreateError('Name is required.');
+      return;
+    }
 
     const parent = files[0]?.path ?? '/';
-    if (createMode === 'file') {
-      createFile(parent, trimmed);
-    } else {
-      createDirectory(parent, trimmed);
+    try {
+      if (createMode === 'file') {
+        createFile(parent, trimmed);
+      } else {
+        createDirectory(parent, trimmed);
+      }
+      closeCreateModal();
+    } catch (error) {
+      setCreateError(
+        error instanceof Error ? error.message : 'Unable to create the item.',
+      );
     }
-    closeCreateModal();
   }, [closeCreateModal, createDirectory, createFile, createMode, draftName, files]);
 
   // Flatten the tree for search
@@ -205,6 +219,9 @@ export function FileExplorer() {
               autoCorrect={false}
               onSubmitEditing={submitCreate}
             />
+            {createError ? (
+              <Text style={[styles.modalError, { color: colors.rose }]}>{createError}</Text>
+            ) : null}
             <View style={styles.modalActions}>
               <TouchableOpacity onPress={closeCreateModal} style={styles.modalButton}>
                 <Text style={[styles.modalButtonText, { color: colors.textSecondary }]}>Cancel</Text>
@@ -303,6 +320,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'flex-end',
     gap: Spacing.lg,
+  },
+  modalError: {
+    fontSize: Typography.fontSize.sm,
   },
   modalButton: {
     paddingVertical: Spacing.sm,
