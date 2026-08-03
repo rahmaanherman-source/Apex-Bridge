@@ -1,0 +1,40 @@
+If you’re asking what file that content should be saved as, here are the exact filenames:
+
+Content	Exact Filename	Location
+Apex Breeze overview (the README you pasted)	README.md	apex-breeze-sync/README.md (or extensions/apex-breeze/README.md if it’s inside APEX Hub)
+Installation guide	INSTALL.md	docs/INSTALL.md
+Deployment guide	DEPLOYMENT.md	docs/DEPLOYMENT.md
+Security documentation	SECURITY.md	docs/SECURITY.md
+API documentation	API.md	docs/API.md
+Message contract	types.ts	shared/types.ts
+Database schema	schema.sql	db/schema.sql
+Docker stack	docker-compose.yml	docker/docker-compose.yml
+Environment template	.env.example	docker/.env.example
+GitHub workflow	build.yml	.github/workflows/build.yml
+Mobile integration	apex-breeze-sync-client.js	mobile-app-integration/apex-breeze-sync-client.js
+
+If you’re integrating this into your APEX ecosystem
+
+I recommend placing it here:
+
+apex-platform/
+├── frontend/
+├── backend/
+├── gateway/
+├── mobile/
+├── extensions/
+│   └── apex-breeze/
+│       ├── README.md          ← Your document
+│       ├── extension/
+│       ├── control-panel/
+│       ├── server/
+│       ├── gateway/
+│       ├── shared/
+│       ├── docs/
+│       └── docker/
+
+So the document you just pasted should be saved as:
+
+extensions/apex-breeze/README.md
+
+That is the canonical location for it inside your unified APEX GODSPEED MAC LIFE ECOSYSTEM.
